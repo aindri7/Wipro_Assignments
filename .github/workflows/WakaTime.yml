@@ -2,21 +2,27 @@ name: WakaTime Readme
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs every day at midnight
-  workflow_dispatch:
+    - cron: '0 * * * *' # Runs every hour
+  workflow_dispatch: # Allows manual run
 
 jobs:
   update-readme:
+    name: Update WakaTime Readme
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: WakaTime Readme Stats
-        uses: athul/waka-readme@master # This always uses the latest version
+      - name: WakaTime Readme
+        uses: athul/waka-readme@master
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          SHOW_TIME: true # Shows time spent on each language
-          SHOW_TOTAL: true # Shows total coding time
-          TIME_RANGE: last_7_days # Weekly data
-          LANG_COUNT: 5 # Top 5 languages only
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SHOW_TIME: true
+          SHOW_TOTAL: true
+          LANG_COUNT: 5
+          TIME_RANGE: last_7_days
+          SHOW_TITLE: true
+          STOP_AT_OTHER: true
+          TARGET_PATH: README.md
+s
