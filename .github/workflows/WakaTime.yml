@@ -13,11 +13,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: WakaTime Readme Stats
-        uses: athul/waka-readme@master
+        uses: athul/waka-readme@master # This always uses the latest version
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          SHOW_TOTAL: true
-          SHOW_LANGUAGE: true
-          SHOW_TIME: true
-          SHOW_EDITORS: true
-          SHOW_OS: true
+          SHOW_TIME: true # Shows time spent on each language
+          SHOW_TOTAL: true # Shows total coding time
+          TIME_RANGE: last_7_days # Weekly data
+          LANG_COUNT: 5 # Top 5 languages only
