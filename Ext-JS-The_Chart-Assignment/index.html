@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNC Selection Process - Charts (Ext JS + Chart.js)</title>
+
+    <!-- Ext JS CDN (Make sure the version is correct) -->
+    <link rel="stylesheet" href="https://cdn.sencha.com/ext/gpl/7.0.0/classic/theme-neptune/resources/theme-neptune-all.css">
+    <script src="https://cdn.sencha.com/ext/gpl/7.0.0/ext-all.js"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Chart Container Styling */
+        .chart-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Canvas Style for charts */
+        canvas {
+            width: 100%;
+            height: 400px !important;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // Wait for Ext JS to be ready
+        Ext.onReady(function () {
+            // Create a Window to hold the content using Ext JS
+            Ext.create('Ext.window.Window', {
+                title: 'MNC Selection Process - Recruitment Data',
+                width: 900,
+                height: 600,
+                layout: 'vbox',
+                items: [
+                    {
+                        xtype: 'panel',
+                        layout: 'fit',
+                        title: 'Line Chart - Time Taken for Hiring Process',
+                        margin: 10,
+                        items: [{
+                            xtype: 'container',
+                            layout: 'fit',
+                            listeners: {
+                                render: function () {
+                                    var ctx = document.getElementById('lineChart').getContext('2d');
+                                    var lineChart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                                            datasets: [{
+                                                label: 'Time Taken for Hiring Process (Days)',
+                                                data: [10, 15, 20, 18, 12, 14, 16],
+                                                fill: false,
+                                                borderColor: 'rgb(75, 192, 192)',
+                                                tension: 0.1
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            html: '<canvas id="lineChart" width="400" height="200"></canvas>'
+                        }]
+                    },
+                    {
+                        xtype: 'panel',
+                        layout: 'fit',
+                        title: 'Bar Chart - Selected and Rejected Candidates at Each Stage',
+                        margin: 10,
+                        items: [{
+                            xtype: 'container',
+                            layout: 'fit',
+                            listeners: {
+                                render: function () {
+                                    var ctx = document.getElementById('barChart').getContext('2d');
+                                    var barChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Application Review', 'Interview Stage', 'Offer Stage', 'Final Decision'],
+                                            datasets: [{
+                                                label: 'Selected Candidates',
+                                                data: [200, 150, 120, 100],
+                                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                                borderColor: 'rgba(75, 192, 192, 1)',
+                                                borderWidth: 1
+                                            },
+                                            {
+                                                label: 'Rejected Candidates',
+                                                data: [50, 40, 30, 10],
+                                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                                borderColor: 'rgba(255, 99, 132, 1)',
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true,
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            html: '<canvas id="barChart" width="400" height="200"></canvas>'
+                        }]
+                    },
+                    {
+                        xtype: 'panel',
+                        layout: 'fit',
+                        title: 'Pie Chart - Distribution of Candidates by Source',
+                        margin: 10,
+                        items: [{
+                            xtype: 'container',
+                            layout: 'fit',
+                            listeners: {
+                                render: function () {
+                                    var ctx = document.getElementById('pieChart').getContext('2d');
+                                    var pieChart = new Chart(ctx, {
+                                        type: 'pie',
+                                        data: {
+                                            labels: ['Job Portals', 'Employee Referrals', 'Social Media'],
+                                            datasets: [{
+                                                label: 'Candidate Sources',
+                                                data: [60, 30, 10],
+                                                backgroundColor: [
+                                                    'rgba(255, 99, 132, 0.6)',
+                                                    'rgba(54, 162, 235, 0.6)',
+                                                    'rgba(75, 192, 192, 0.6)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(54, 162, 235, 1)',
+                                                    'rgba(75, 192, 192, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: true
+                                        }
+                                    });
+                                }
+                            },
+                            html: '<canvas id="pieChart" width="400" height="200"></canvas>'
+                        }]
+                    }
+                ]
+            }).show();
+        });
+    </script>
+
+</body>
+</html>
